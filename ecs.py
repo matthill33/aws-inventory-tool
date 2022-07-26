@@ -1,10 +1,13 @@
+import sys
 import boto3
 import math 
 import pandas as pd 
 from tabulate import tabulate
 from datetime import date, datetime, timedelta
 
-ecs = boto3.client('ecs')
+profile = sys.argv[1]
+session = boto3.Session(profile_name = profile)
+ecs = session.client('ecs')
 clusterList = ecs.list_clusters()
 numRunningClusters = len(clusterList['clusterArns'])
 

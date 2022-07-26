@@ -1,3 +1,4 @@
+import sys
 import boto3
 import math 
 import pandas as pd 
@@ -5,7 +6,9 @@ from datetime import date, datetime, timedelta
 from rdsHelpers import *
 from tabulate import tabulate
 
-rds = boto3.client('rds')
+profile = sys.argv[1]
+session = boto3.Session(profile_name = profile)
+rds = session.client('rds')
 data = rds.describe_db_instances()
 numRunningInstances = len(data['DBInstances'])
 

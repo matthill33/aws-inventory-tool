@@ -15,19 +15,20 @@ from pathlib import Path
 # need iam:ListAccountAliases on resource: * account permissions to list account
 # accountAlias = boto3.client('iam').list_account_aliases()['AccountAliases'][0]
 
-arg = 'no arg'
+arg = 'no service arg'
 downloads_path = str(Path.home() / "Downloads")
+profile = sys.argv[1]
 
-if len(sys.argv) > 1:
-    arg = sys.argv[1]
+if len(sys.argv) > 2:
+    arg = sys.argv[2]
 
-if arg != 'no arg' and arg != 'ec2' and arg != 'rds' and arg != 'ecs' and arg != 'all':
+if arg != 'no service arg' and arg != 'ec2' and arg != 'rds' and arg != 'ecs' and arg != 'all':
     print("\nInvalid Argument. Valid arguments listed below:")
-    print("\"py inventory.py\"")
-    print("\"py inventory.py ec2\"")
-    print("\"py inventory.py rds\"")
-    print("\"py inventory.py ecs\"")
-    print("\"py inventory.py all\"\n")
+    print("\"py inventory.py --profile\"")
+    print("\"py inventory.py --profile ec2\"")
+    print("\"py inventory.py --profile rds\"")
+    print("\"py inventory.py --profile ecs\"")
+    print("\"py inventory.py --profile all\"\n")
 
 def displayEC2(all):
     # if there are any running ec2 instances, display them
@@ -79,7 +80,7 @@ def displayECS(all):
 
 
 # show ec2, rds, ecs data
-if arg == 'all' or arg == 'no arg':
+if arg == 'all' or arg == 'no service arg':
     displayEC2(True)
     displayRDS(True)
     displayECS(True)

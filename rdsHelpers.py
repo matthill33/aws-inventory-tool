@@ -1,3 +1,4 @@
+import sys
 import math
 import boto3
 from datetime import date, datetime, timedelta, timezone
@@ -11,7 +12,9 @@ today = datetime.now().strftime("%Y-%m-%d")
 monthAgo = (date.today() - timedelta(30)).strftime("%Y-%m-%d")
 sixMonthsAgo = (date.today() - timedelta(180)).strftime("%Y-%m-%d")
 
-cloudwatch = boto3.client('cloudwatch')
+profile = sys.argv[1]
+session = boto3.Session(profile_name = profile)
+cloudwatch = session.client('cloudwatch')
 
 def get30DayRDSCPUAverage(id,engine):
     # add docdb compatibility

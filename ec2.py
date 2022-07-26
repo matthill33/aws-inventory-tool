@@ -1,3 +1,4 @@
+import sys
 import boto3
 import math 
 import pandas as pd 
@@ -5,7 +6,9 @@ from datetime import date, datetime, timedelta, timezone
 from ec2Helpers import *
 from tabulate import tabulate
 
-ec2 = boto3.client('ec2')
+profile = sys.argv[1]
+session = boto3.Session(profile_name = profile)
+ec2 = session.client('ec2')
 data = ec2.describe_instances(Filters=[{'Name': 'instance-state-code','Values': ['16']},])
 numRunningInstances = len(data['Reservations'])
 
@@ -80,11 +83,12 @@ def formatEC2Data():
     if numRunningInstances > 0:
         totalRow = getTotalRow(arrOf30DayPrices, arrOfYearPrices)
         # mod_df = df.append(totalRow, ignore_index=True)
+        # formattedTable = tabulate(mod_df, headers = 'keys', tablefmt = 'pretty')
+        # return formattedTable, mod_df
         df.loc[' '] = totalRow
         formattedTable = tabulate(df, headers = 'keys', tablefmt = 'pretty')
         return formattedTable, df
-        # formattedTable = tabulate(mod_df, headers = 'keys', tablefmt = 'pretty')
-        # return formattedTable, mod_df
+
     else:
         formattedTable = tabulate(df, headers = 'keys', tablefmt = 'pretty')
         return formattedTable, df
