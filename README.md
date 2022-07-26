@@ -13,12 +13,15 @@ Python, boto3, pandas, and tabulate
 * pip install tabulate
 
 ### Prerequisites: 
-Use "aws configure" in terminal and enter in an access key and secret
-access key of the account that you want to take inventory of. 
+Have the aws account you want to take inventory of setup in your credentials 
+file in your .aws folder. You need to have your access key, secrety access
+key, and region setup. 
 
 ### To run: 
 Navigate to "aws inventory tool" folder and run 
-* py inventory.py
+* py inventory.py profile
+* example: I have companyA profile setup in my credentials file
+* py inventory.py companyA
 
 
 Can also pass arguments 'ec2', 'rds', or 'ecs' to only get data for that service
