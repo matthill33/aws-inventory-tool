@@ -66,22 +66,25 @@ def formatEC2Data():
     formatData = {'Name' : arrOfNames,
                   'Id' : arrOfIds,
                   'Type' : arrOfTypes,
-                  '30-Day CPU Avg (%)' : arrOf30CPUAvgs,
-                  '6 Month CPU Avg (%)' : arrOf180CPUAvgs,
-                  '30-Day CPU Max (%)' : arrOf30CPUMaxs,
-                  '6 Month CPU Max (%)' : arrOf180CPUMaxs,
-                  '30-Day Cost ($)' : arrOf30DayPrices,
-                  'Year Cost ($)' : arrOfYearPrices,
+                  '30-Day CPU Avg %' : arrOf30CPUAvgs,
+                  '6 Month CPU Avg %' : arrOf180CPUAvgs,
+                  '30-Day CPU Max %' : arrOf30CPUMaxs,
+                  '6 Month CPU Max %' : arrOf180CPUMaxs,
+                  '30-Day Cost' : arrOf30DayPrices,
+                  'Year Cost' : arrOfYearPrices,
                   'Date Launched' : arrOfDatesLaunched}
 
     df = pd.DataFrame(formatData) # create pandas dataframe with retrieved data
 
     # append total row if there are running instances
     if numRunningInstances > 0:
-        totalRow = getTotalRow(arrOf30DayPrices, arrOfYearPrices)    
-        mod_df = df.append(totalRow, ignore_index=True)
-        formattedTable = tabulate(mod_df, headers = 'keys', tablefmt = 'pretty')
-        return formattedTable, mod_df
+        totalRow = getTotalRow(arrOf30DayPrices, arrOfYearPrices)
+        # mod_df = df.append(totalRow, ignore_index=True)
+        df.loc[' '] = totalRow
+        formattedTable = tabulate(df, headers = 'keys', tablefmt = 'pretty')
+        return formattedTable, df
+        # formattedTable = tabulate(mod_df, headers = 'keys', tablefmt = 'pretty')
+        # return formattedTable, mod_df
     else:
         formattedTable = tabulate(df, headers = 'keys', tablefmt = 'pretty')
         return formattedTable, df

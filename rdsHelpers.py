@@ -118,7 +118,7 @@ def getTotalRow(arrOf30DayPrices, arrOfYearPrices):
     sumYear = round(sumYear, 2)
     sumYear = "{:0,.2f}".format(float(sumYear))
 
-    return ({'DB Identifier' :'Total', 'Engine' : '-','Instance Class' :'-',
-    '30-Day CPU Avg (%)' : '-','30-Day Connection/Sec Avg' : '-','30-Day WriteIOPS/Sec Avg' : '-',
-    '30-Day ReadIOPS/Sec Avg' : '-','30-Day Cost ($)' : sum30,'Year Cost ($)' : sumYear,
+    return ({'Identifier' :'Total', 'Engine' : '-','Instance Class' :'-',
+    '30-Day cpu av %' : '-','30-Day connection' : '-','30-Day WIOPS/sec' : '-',
+    '30-Day RIOPS/sec' : '-','30-Day cost' : sum30,'Year cost' : sumYear,
     'Date Launched' : '-'})

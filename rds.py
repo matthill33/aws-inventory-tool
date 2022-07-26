@@ -54,15 +54,15 @@ def getNumRDSInstances():
     return numRunningInstances
 
 def formatRDSData():
-    formatData = {'DB Identifier' : arrOfIdentifiers,
+    formatData = {'Identifier' : arrOfIdentifiers,
                   'Engine' : arrOfEngines,
                   'Instance Class' : arrOfDBInstanceClass,
-                  '30-Day CPU Avg (%)' : arrOf30CPUAvgs,
-                  '30-Day Connection/Sec Avg' : arrOf30ConnectionsAvgs,
-                  '30-Day WriteIOPS/Sec Avg' : arrOf30WritesAvgs,
-                  '30-Day ReadIOPS/Sec Avg' : arrOf30ReadsAvgs,
-                  '30-Day Cost ($)' : arrOf30DayPrices,
-                  'Year Cost ($)' : arrOfYearPrices,
+                  '30-Day cpu av %' : arrOf30CPUAvgs,
+                  '30-Day connection' : arrOf30ConnectionsAvgs,
+                  '30-Day WIOPS/sec' : arrOf30WritesAvgs,
+                  '30-Day RIOPS/sec' : arrOf30ReadsAvgs,
+                  '30-Day cost' : arrOf30DayPrices,
+                  'Year cost' : arrOfYearPrices,
                   'Date Launched' : arrOfDatesLaunched}
     
     df = pd.DataFrame(formatData)
@@ -70,9 +70,12 @@ def formatRDSData():
     # append total row if there are any running instances
     if numRunningInstances > 0:
         totalRow = getTotalRow(arrOf30DayPrices, arrOfYearPrices)    
-        mod_df = df.append(totalRow, ignore_index=True)
-        formattedTable = tabulate(mod_df, headers = 'keys', tablefmt = 'pretty')
-        return formattedTable, mod_df
+        df.loc[' '] = totalRow
+        formattedTable = tabulate(df, headers = 'keys', tablefmt = 'pretty')
+        return formattedTable, df
+        # mod_df = df.append(totalRow, ignore_index=True)
+        # formattedTable = tabulate(mod_df, headers = 'keys', tablefmt = 'pretty')
+        # return formattedTable, mod_df
     else:
         formattedTable = tabulate(df, headers = 'keys', tablefmt = 'pretty')
         return formattedTable, df

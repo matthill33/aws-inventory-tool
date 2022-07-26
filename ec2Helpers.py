@@ -85,7 +85,8 @@ def getNameTag(arrOfTags):
         return "-"
     for i in range(0, arrSize): # loop through tag keys and check for Name
         if(arrOfTags[i]['Key'] == 'Name'):
-            return arrOfTags[i]['Value']
+            nameTag = arrOfTags[i]['Value']
+            return nameTag[:30]
     return "-" #there are no tags, return hyphen 
 
 def getTotalRow(arrOf30DayPrices, arrOfYearPrices):
@@ -102,6 +103,6 @@ def getTotalRow(arrOf30DayPrices, arrOfYearPrices):
     sumYear = round(sumYear, 2)
     sumYear = "{:0,.2f}".format(float(sumYear)) # format for output with commas
 
-    return ({'Name' :'Total', 'Id' : '-','Type' :'-', '30-Day CPU Avg (%)' : '-',
-    '6 Month CPU Avg (%)' : '-','30-Day CPU Max (%)' : '-','6 Month CPU Max (%)' : '-',
-    '30-Day Cost ($)' : sum30,'Year Cost ($)' : sumYear,'Date Launched' : '-'})
+    return ({'Name' :'Total', 'Id' : '-','Type' :'-', '30-Day CPU Avg %' : '-',
+    '6 Month CPU Avg %' : '-','30-Day CPU Max %' : '-','6 Month CPU Max %' : '-',
+    '30-Day Cost' : sum30,'Year Cost' : sumYear,'Date Launched' : '-'})
