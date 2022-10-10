@@ -90,8 +90,11 @@ def get30DayPrice(engine, instanceClass, multi):
         return 'add price to pricing.py'
     else:
         demandHourlyPrice = demandHourlyPrice*720
-    demandHourlyPrice = round(demandHourlyPrice, 2)
-    return demandHourlyPrice
+    if type(demandHourlyPrice) is not str:
+        demandHourlyPrice = round(demandHourlyPrice, 2)
+        return demandHourlyPrice
+    else:
+        return 0
 
 # If this function errors it it most likely becuase the db type/engine is not listed on 
 # the pricing.py file. Add to type/engine type to file, change the getRDSPrice function appropriately 
@@ -102,8 +105,11 @@ def getYearPrice(engine, instanceClass, multi):
         return 'add price to pricing.py'
     else:
         demandHourlyPrice = demandHourlyPrice*8760
-    demandHourlyPrice = round(demandHourlyPrice, 2)
-    return demandHourlyPrice
+    if type(demandHourlyPrice) is not str:
+        demandHourlyPrice = round(demandHourlyPrice, 2)
+        return demandHourlyPrice
+    else:
+        return 0
 
 def getTotalRow(arrOf30DayPrices, arrOfYearPrices):
     sum30 = 0
